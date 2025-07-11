@@ -1,0 +1,70 @@
+
+------------------------------------LEARN ALL THE FORMULAS-----------------------------------------
+
+
+**🚗 Driving Simulation Project: Interview Q\&A Cheat Sheet**
+
+---
+
+### 1. Why did you simulate instead of using actual hardware?
+
+**Answer:** I initially intended to interface with real hardware (like a motor or wheel sensor) to stream live data into my C++ program. However, due to hardware unavailability and lack of tools like MATLAB Simulink, I built a realistic vehicle dynamics simulator using empirical logic and randomness to mimic behavior.
+
+---
+
+### 2. How is speed calculated?
+
+**Answer:** Speed is derived by scaling the current RPM relative to the max RPM, adjusted by `speedFactor` and capped by the terrain-based speed limit:
+
+```cpp
+float kmph = clamp((rpm / maxRPM) * speedLimit * speedFactor, 0.0f, speedLimit);
+```
+
+---
+
+### 3. What is the purpose of `speedFactor`?
+
+**Answer:** It adjusts the proportionality between RPM and the actual vehicle speed, simulating effects like drag, incline, and drivetrain losses depending on driving style and terrain.
+
+---
+
+### 4. Why did you encapsulate logic inside a class?
+
+**Answer:** To follow object-oriented principles for modularity, maintainability, and future extension (e.g., multi-vehicle support, external data injection).
+
+---
+
+### 5. How would you add support for real-time sensor data?
+
+**Answer:** I'd replace the simulated noise and throttle values with live data streamed via serial/CAN bus interfaces and refactor my class to accept input streams.
+
+---
+
+### 6. How does the dynamic mileage calculation work?
+
+**Answer:** It uses a formula based on the efficiency drop from the optimal RPM zone. As RPM deviates, mileage decreases non-linearly.
+
+---
+
+### 7. Why use `deque` for mileage history?
+
+**Answer:** `deque` supports efficient insertion/removal from both ends, ideal for maintaining a sliding window of recent mileage readings.
+
+---
+
+### 8. What challenges did you face?
+
+**Answer:** Lack of hardware forced me to simulate realistic behavior manually. Creating smooth, realistic dynamics while keeping it understandable and modular in C++ was also a challenge.
+
+---
+
+### 9. What would you improve if you had more time/resources?
+
+**Answer:** I'd connect it to real vehicle sensors, visualize the simulation via a GUI or live plot, and separate logic into more specialized classes.
+
+---
+
+### 10. How is this relevant to an embedded systems or automotive role?
+
+**Answer:** This project mimics real-world vehicle behavior, emphasizes C++ simulation, and shows my readiness to work with hardware integration, real-time data, and performance-efficient code, all of which are crucial in such domains.
+
